@@ -1,0 +1,31 @@
+<h1><%= @post.title %></h1>
+
+<%== @post.body %>
+
+<div>
+  <h2><%= pluralize @post.comments.count, 'Comment'%></h2>
+
+  <%= form_for [@post, @comment] do |f| %>
+    <div>
+      <%= f.label :author, 'Name'%>
+      <%= f.text_field :author %>
+    </div>
+    <div>
+      <%= f.label :body, 'Comment'%>
+      <%= f.text_area :body %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+  <ul>
+    <% @post.comments.order(created_at: :desc).each  do |c| %>
+      <li>
+        <div><strong>Author: <%= c.author %></strong></div>
+        <div><%= c.body %></div>
+        <div><%= c.created_at %></div>
+      </li>
+    <% end %>
+  </ul>
+</div>

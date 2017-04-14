@@ -1,0 +1,64 @@
+# URLS in Rails
+
+get '/buddies', to: 'BuddiesController#index'
+post '/buddies', to: 'BuddiesController#create'
+put '/buddies/:id', to: 'BuddiesController#update'
+delete '/buddies/:id', to: 'BuddiesController#destroy'
+
+put '/brewclubs/:brewclub/subscribe/shipping-address', to: 'SubscriptionOrders#update_shipping'
+put '/brewclubs/:brewclub/subscribe/payment-info', to: 'SubscriptionOrders#update_payment'
+
+resources :beers do
+  get :drink, on: :member
+end
+
+/beers/:id/drink
+
+resources :session
+
+get '/sessions/:id', to: 'SessionsController#show'
+put '/sessions/:id', to: 'SessionsController#update'
+post '/sessions',    to: 'SessionsController#create'
+delete '/sessions/:id', to: 'SessionsController#destroy'
+
+resource :session
+
+get '/session', to: 'SessionsController#show'
+put '/session', to: 'SessionsController#update'
+post '/sessions',    to: 'SessionsController#create'
+delete '/session', to: 'SessionsController#destroy'
+
+
+resources :posts, only: [:create, :update]
+
+get '/about/:page', to: 'StaticController#show'
+
+
+resources :posts do
+  resources :comments, shallow: true
+end
+
+post '/posts/:post_id/comments'
+get  '/posts/:post_id/comments'
+get  '/comments/:id'
+put  '/comments/:id'
+
+
+# SLugs
+
+/news/343034
+/news/legalizing-beer
+
+/news/2017/10/02/legalizing-beer
+
+namespace :api do
+  resource :pictures
+end
+
+get /api/pictures/:id, # controller Api::PicturesController
+
+scope :foo do
+  resources :pictures
+end
+
+get '/foo/pictures', # PicturesController#index
